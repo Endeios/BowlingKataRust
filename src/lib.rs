@@ -18,10 +18,23 @@ impl Game {
         let mut score = 0;
         let mut i: usize = 0;
         for _frame in 0..10 {
-            score += self.rolls[i] + self.rolls[i + 1];
-            i += 2;
+            if self.frame_is_spare(i) {
+                score += self.current_frame_score(i) + self.rolls[i + 2];
+                i += 2;
+            } else {
+                score += self.rolls[i] + self.rolls[i + 1];
+                i += 2;
+            }
         }
         score
+    }
+
+    fn current_frame_score(&self, i: usize) -> i32 {
+        self.rolls[i] + self.rolls[i + 1]
+    }
+
+    fn frame_is_spare(&self, i: usize) -> bool {
+        self.rolls[i] + self.rolls[i + 1] == 10
     }
 }
 
@@ -61,7 +74,7 @@ mod tests {
         }
     }
 
-    //#[test]
+    #[test]
     fn game_supports_spare() {
         let mut game: Game = Game::new();
         game.roll(5);
