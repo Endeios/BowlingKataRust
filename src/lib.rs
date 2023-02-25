@@ -17,7 +17,11 @@ impl Game {
     pub(crate) fn score(&self) -> i32 {
         let mut score = 0;
         for roll_index  in 0..20 {
-            score += self.rolls[roll_index]
+            if self.rolls[roll_index] + self.rolls[roll_index+1]==10 {
+                score += 10 + self.rolls[roll_index+2];
+            } else {
+                score += self.rolls[roll_index];
+            }
         }
         score
     }
@@ -59,7 +63,7 @@ mod tests {
         }
     }
 
-    //#[test]
+    #[test]
     fn game_supports_spare() {
         let mut game: Game = Game::new();
         game.roll(5);
