@@ -97,4 +97,11 @@ mod tests {
         roll_many(&mut game, 0, 16);
         assert_eq!(game.score(), 24);
     }
+
+    #[test]
+    fn game_supports_perfect_game(){
+        let mut game: Game = Game::new();
+        roll_many(&mut game, 10, 12);
+        assert_eq!(game.score(), 300);
+    }
 }
