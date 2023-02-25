@@ -29,24 +29,32 @@ mod tests {
 
     #[test]
     fn game_exists() {
-        let game: Game = Game::new();
+        let _: Game = Game::new();
     }
 
     #[test]
     fn game_supports_gutter_game() {
         let mut game: Game = Game::new();
-        for _ in 0..20 {
-            game.roll(0);
-        }
+        roll_many(&mut game, 0, 20);
         assert_eq!(game.score(), 0);
     }
 
     #[test]
     fn game_supports_all_one_game() {
         let mut game: Game = Game::new();
-        for _ in 0..20 {
-            game.roll(1);
-        }
+        let times = 20;
+        roll_many(&mut game, 1, times);
         assert_eq!(game.score(), 20);
+    }
+
+    fn roll_many(game: &mut Game, number_of_pins: i32, times: i32) {
+        for _ in 0..times {
+            game.roll(number_of_pins);
+        }
+    }
+
+    #[test]
+    fn game_supports_spare(){
+
     }
 }
