@@ -42,8 +42,7 @@ mod tests {
     #[test]
     fn game_supports_all_one_game() {
         let mut game: Game = Game::new();
-        let times = 20;
-        roll_many(&mut game, 1, times);
+        roll_many(&mut game, 1, 20);
         assert_eq!(game.score(), 20);
     }
 
@@ -55,6 +54,13 @@ mod tests {
 
     #[test]
     fn game_supports_spare(){
+        let mut game: Game = Game::new();
+        game.roll(5);
+        game.roll(5);
+        game.roll(3);
+        game.roll(3);
+        roll_many(&mut game, 0, 16);
+        assert_eq!(game.score(), 19);
 
     }
 }
