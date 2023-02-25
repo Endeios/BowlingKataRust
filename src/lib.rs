@@ -18,11 +18,14 @@ impl Game {
         let mut score = 0;
         let mut i: usize = 0;
         for _frame in 0..10 {
-            if self.frame_is_spare(i) {
+            if self.rolls[i] == 10 {
+                score += self.current_frame_score(i) + self.rolls[i + 2];
+                i += 1;
+            } else if self.frame_is_spare(i) {
                 score += self.current_frame_score(i) + self.rolls[i + 2];
                 i += 2;
             } else {
-                score += self.rolls[i] + self.rolls[i + 1];
+                score += self.current_frame_score(i);
                 i += 2;
             }
         }
@@ -83,5 +86,15 @@ mod tests {
         game.roll(3);
         roll_many(&mut game, 0, 16);
         assert_eq!(game.score(), 19);
+    }
+
+    #[test]
+    fn game_supports_strike(){
+        let mut game: Game = Game::new();
+        game.roll(10);
+        game.roll(3);
+        game.roll(4);
+        roll_many(&mut game, 0, 16);
+        assert_eq!(game.score(), 24);
     }
 }
