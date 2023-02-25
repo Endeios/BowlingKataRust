@@ -1,11 +1,12 @@
 #[allow(unused_variables)]
+#[derive()]
 pub struct Game {
     rolls: [i32; 20],
     current_roll: usize,
 }
 
 impl Game {
-    pub(crate) fn new() -> Game {
+    pub fn new() -> Game {
         Game {
             rolls: [0; 20],
             current_roll: 0,
@@ -14,7 +15,7 @@ impl Game {
 }
 
 impl Game {
-    pub(crate) fn score(&self) -> i32 {
+    pub fn score(&self) -> i32 {
         let mut score = 0;
         let mut i: usize = 0;
         for _frame in 0..10 {
@@ -42,7 +43,7 @@ impl Game {
 }
 
 impl Game {
-    pub(crate) fn roll(&mut self, number_of_pins: i32) {
+    pub fn roll(&mut self, number_of_pins: i32) {
         self.rolls[self.current_roll] = number_of_pins;
         self.current_roll += 1;
     }
