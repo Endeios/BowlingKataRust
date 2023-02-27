@@ -1,3 +1,4 @@
+#[allow(clippy::new_without_default)]
 #[allow(unused_variables)]
 #[derive()]
 pub struct Game {
@@ -19,7 +20,7 @@ impl Game {
         let mut score = 0;
         let mut i: usize = 0;
         for _frame in 0..10 {
-            if self.rolls[i] == 10 {
+            if self.first_roll_is_a_strike(i) {
                 score += self.current_frame_score(i) + self.rolls[i + 2];
                 i += 1;
             } else if self.frame_is_spare(i) {
@@ -31,6 +32,10 @@ impl Game {
             }
         }
         score
+    }
+
+    fn first_roll_is_a_strike(&self, i: usize) -> bool {
+        self.rolls[i] == 10
     }
 
     fn current_frame_score(&self, i: usize) -> i32 {
